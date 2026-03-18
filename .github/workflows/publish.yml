@@ -1,0 +1,54 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: Semver bump to publish
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+  push:
+    tags:
+      - release
+      - release/**
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Publish release assets and sdk-publish link
+        env:
+          CI: "true"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEVELOPER_ADDRESS: ${{ secrets.DEVELOPER_ADDRESS }}
+        run: >
+          npx @dappnode/dappnodesdk@0.3.45 publish
+          ${{ github.event_name == 'workflow_dispatch' && inputs.release_type || '' }}
+          --provider remote
+          --upload-to ipfs
+          --github-release
+          --verbose
