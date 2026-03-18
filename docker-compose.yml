@@ -2,11 +2,10 @@ version: "3.5"
 
 services:
   snowflake-proxy:
-    image: containers.torproject.org/tpo/anti-censorship/pluggable-transports/snowflake:latest
+    build: .
+    image: "snowflake.public.dappnode.eth:0.1.0"
     restart: unless-stopped
-    command:
-      - "-ephemeral-ports-range"
-      - "30000:30999"
-      - "-verbose"
+    environment:
+      EXTRA_OPTS: ""
     ports:
       - "30000-30999:30000-30999/udp"
