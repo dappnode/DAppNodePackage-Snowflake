@@ -1,0 +1,12 @@
+{
+  "name": "snowflake.public.dappnode.eth",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "dappnodesdk build",
+    "test": "dappnodesdk verify"
+  },
+  "devDependencies": {
+    "@dappnode/dappnodesdk": "latest"
+  }
+}

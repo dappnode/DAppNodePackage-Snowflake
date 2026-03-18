@@ -1,0 +1,14 @@
+{
+  "name": "snowflake.public.dappnode.eth",
+  "version": "0.1.0",
+  "description": "Tor Snowflake proxy for Dappnode",
+  "type": "service",
+  "author": "lanski",
+  "categories": ["Developer tools", "Communications"],
+  "links": {
+    "homepage": "https://snowflake.torproject.org/",
+    "documentation": "https://community.torproject.org/relay/setup/snowflake/standalone/"
+  },
+  "license": "BSD-3-Clause",
+  "architectures": ["linux/amd64", "linux/arm64"]
+}
